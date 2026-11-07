@@ -1,0 +1,11 @@
+start_frame,end_frame_exclusive,restart_candidate_frame,exit_boundary,basis,status
+18025,18349,18349,left_goal_line,observed_exit+kick+set_piece,tentative_not_ground_truth
+21610,22082,22082,top_touchline,observed_exit+kick+set_piece,tentative_not_ground_truth
+37093,37197,37197,left_goal_line,observed_exit+kick+set_piece,tentative_not_ground_truth
+39039,39229,39229,top_touchline,observed_exit+kick+set_piece,tentative_not_ground_truth
+114780,115407,115407,top_touchline,observed_exit+kick+set_piece,tentative_not_ground_truth
+120462,120920,120920,bottom_touchline,observed_exit+kick+set_piece,tentative_not_ground_truth
+121288,121803,121803,top_touchline,observed_exit+kick+set_piece,tentative_not_ground_truth
+127504,127829,127829,bottom_touchline,observed_exit+kick+set_piece,tentative_not_ground_truth
+138423,138921,138921,left_goal_line,observed_exit+kick+set_piece,tentative_not_ground_truth
+144069,144329,144329,right_goal_line,observed_exit+kick+set_piece,tentative_not_ground_truth
