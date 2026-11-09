@@ -1,0 +1,5 @@
+# GBDT training, feature extraction and saved-artifact checks.
+-r requirements-starter.txt
+lightgbm
+scikit-learn
+pyarrow
