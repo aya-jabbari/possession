@@ -515,6 +515,119 @@ def analyze_restarts(tracking, exits, tags):
     return kicks_df, intervals_df
 
 
+def build_frame_features(tracking, exits, kicks, intervals):
+    """Create frame-aligned, weak out-of-bounds features for model training."""
+
+    frames = tracking["video_frame"].to_numpy(dtype=int)
+    features = pd.DataFrame({"video_frame": frames})
+    features["out_of_bounds_event"] = 0
+    features["ball_outside_observed"] = 0
+    features["full_ball_exit"] = 0
+    features["restart_candidate"] = 0
+    features["dead_ball_candidate"] = 0
+    features["frames_since_last_exit"] = -1
+    features["frames_until_next_exit"] = -1
+    features["frames_since_last_restart"] = -1
+    features["frames_until_next_restart"] = -1
+    features["nearest_exit_distance_frames"] = -1
+    features["nearest_restart_distance_frames"] = -1
+    features["exit_boundary"] = ""
+    features["exit_reliability"] = ""
+
+    frame_index = pd.Series(
+        np.arange(len(features)),
+        index=features["video_frame"],
+    )
+
+    for _, event in exits.iterrows():
+        start = int(event["start_frame"])
+        end = int(event["end_frame"])
+        selected = frame_index.loc[
+            frame_index.index.to_series().between(start, end)
+        ].to_numpy()
+
+        if len(selected) == 0:
+            continue
+
+        features.loc[selected, "out_of_bounds_event"] = 1
+        features.loc[selected, "ball_outside_observed"] = 1
+        features.loc[selected, "exit_boundary"] = str(event["boundary"])
+        features.loc[selected, "exit_reliability"] = str(
+            event["exit_reliability"]
+        )
+
+        full_exit = event["full_ball_exit_frame"]
+        if pd.notna(full_exit):
+            full_exit_index = frame_index.get(int(full_exit))
+            if full_exit_index is not None:
+                features.loc[full_exit_index, "full_ball_exit"] = 1
+
+    for _, kick in kicks.iterrows():
+        start = int(kick["start_frame"])
+        end = int(kick["end_frame"])
+        selected = frame_index.loc[
+            frame_index.index.to_series().between(start, end)
+        ].to_numpy()
+        if len(selected):
+            features.loc[selected, "restart_candidate"] = 1
+
+    for _, interval in intervals.iterrows():
+        start = int(interval["start_frame"])
+        end = int(interval["end_frame_exclusive"]) - 1
+        selected = frame_index.loc[
+            frame_index.index.to_series().between(start, end)
+        ].to_numpy()
+        if len(selected):
+            features.loc[selected, "dead_ball_candidate"] = 1
+
+    exit_frames = sorted(
+        set(exits["start_frame"].dropna().astype(int))
+    )
+    restart_frames = sorted(
+        set(kicks["representative_frame"].dropna().astype(int))
+    )
+
+    def add_frame_distances(event_frames, prefix):
+        if not event_frames:
+            return
+
+        event_array = np.asarray(event_frames, dtype=int)
+        positions = np.searchsorted(event_array, frames)
+        previous_exists = positions > 0
+        next_exists = positions < len(event_array)
+
+        previous = np.full(len(frames), -1, dtype=int)
+        previous[previous_exists] = (
+            frames[previous_exists]
+            - event_array[positions[previous_exists] - 1]
+        )
+
+        following = np.full(len(frames), -1, dtype=int)
+        following[next_exists] = (
+            event_array[positions[next_exists]]
+            - frames[next_exists]
+        )
+
+        nearest = np.full(len(frames), -1, dtype=int)
+        both = previous_exists & next_exists
+        nearest[previous_exists & ~next_exists] = previous[
+            previous_exists & ~next_exists
+        ]
+        nearest[~previous_exists & next_exists] = following[
+            ~previous_exists & next_exists
+        ]
+        nearest[both] = np.minimum(previous[both], following[both])
+
+        features[f"frames_since_last_{prefix}"] = previous
+        features[f"frames_until_next_{prefix}"] = following
+        features[f"nearest_{prefix}_distance_frames"] = nearest
+
+    add_frame_distances(exit_frames, "exit")
+    add_frame_distances(restart_frames, "restart")
+
+    return features
+
+
 # ============================================================
 # 6. FINAL MAIN PIPELINE
 # ============================================================
@@ -605,6 +718,17 @@ def main():
         index=False
     )
 
+    frame_features = build_frame_features(
+        tracking,
+        exits,
+        kicks,
+        intervals,
+    )
+    frame_features.to_csv(
+        OUTPUT_DIR / "frame_features.csv",
+        index=False
+    )
+
     print("\n===== PIPELINE COMPLETED =====")
 
     print("Output folder:", OUTPUT_DIR)
@@ -613,6 +737,7 @@ def main():
     print("- events.csv")
     print("- kick_candidates.csv")
     print("- tentative_dead_ball_intervals.csv")
+    print("- frame_features.csv")
 
     print(
         "\nWARNING: Tentative intervals are not "
