@@ -31,13 +31,12 @@ sys.path.insert(0, ROOT)
 
 from pipeline.features import build_features
 from pipeline.gbdt_model import (
-    load_ground_truth, train_gbdt, predict_emissions,
-    save_model, load_model,
+    train_and_save, predict_emissions, load_model, OUTPUT_DIR, FEATURES_PATH,
 )
 from pipeline.viterbi import (
     build_transition_matrix, decode_match,
     remove_short_segments, labels_to_submission,
-    write_submission, H, A, D,
+    write_submission,
 )
 
 
@@ -52,13 +51,13 @@ def run_pipeline(
     # Post-processing
     min_segment_frames=5,
     # Output
-    submission_name="gbdt_viterbi",
+    submission_name="weak_predictions",
     skip_features=False,
     skip_training=False,
 ):
     """Run the full pipeline."""
 
-    output_dir = os.path.join(ROOT, "pipeline", "output")
+    output_dir = OUTPUT_DIR
     os.makedirs(output_dir, exist_ok=True)
 
     t0 = time.time()
@@ -66,7 +65,7 @@ def run_pipeline(
     # ================================================================
     # STEP 1: Feature extraction
     # ================================================================
-    feat_path = os.path.join(output_dir, "features.parquet")
+    feat_path = FEATURES_PATH
 
     if skip_features and os.path.exists(feat_path):
         print("=" * 60)
@@ -87,25 +86,21 @@ def run_pipeline(
     # ================================================================
     emissions_path = os.path.join(output_dir, "emissions.npy")
 
-    if skip_training and os.path.exists(emissions_path):
+    if skip_training:
         print("=" * 60)
-        print("STEP 2: Loading cached emissions")
+        print("STEP 2: Loading model trained on automatic labels")
         print("=" * 60)
-        emissions = np.load(emissions_path)
-        model, feature_names, cv_scores = load_model(output_dir)
+        model, feature_names, training_info = load_model(output_dir)
     else:
         print("=" * 60)
         print("STEP 2: Training GBDT model")
         print("=" * 60)
-        gt_frames, gt_labels = load_ground_truth()
-        model, feature_names, cv_scores = train_gbdt(
-            features_df, gt_frames, gt_labels
-        )
-        save_model(model, feature_names, cv_scores, output_dir)
+        model, feature_names, training_info = train_and_save(features_df, output_dir)
 
-        print("\nPredicting emission probabilities for all frames...")
-        emissions = predict_emissions(model, features_df, feature_names)
-        np.save(emissions_path, emissions)
+    # Predict again even when reusing the model, so changed features cannot use stale emissions.
+    print("\nPredicting emission probabilities for all frames...")
+    emissions = predict_emissions(model, features_df, feature_names)
+    np.save(emissions_path, emissions)
 
     t2 = time.time()
     print(f"\nStep 2 completed in {t2 - t1:.1f}s\n")
@@ -126,11 +121,8 @@ def run_pipeline(
         dead_to_away=dead_to_away,
     )
 
-    # From the public GT: half 1 starts with Away (kick-off)
-    labels = decode_match(
-        emissions, log_trans,
-        initial_states={1: A, 2: H}
-    )
+    # Uniform priors: no kickoff team is copied from ground truth.
+    labels = decode_match(emissions, log_trans)
 
     # Post-process
     print(f"\nPost-processing: removing segments < {min_segment_frames} frames...")
@@ -155,7 +147,8 @@ def run_pipeline(
     print("=" * 60)
     print(f"Total time: {t3 - t0:.1f}s")
     print(f"Submission: {sub_path}")
-    print(f"CV macro F1: {cv_scores.get('cv_macro_f1', 'N/A')}")
+    print(f"Training label source: {training_info['label_source']}")
+    print("Ground truth was not used. Run the evaluator separately for F1 scores.")
     print(f"\nLabel distribution:")
     for label in ["H", "A", "D", "X"]:
         count = np.sum(label_strings == label)
@@ -191,12 +184,12 @@ if __name__ == "__main__":
                         help="Self-transition prob for D state (default: 0.990)")
     parser.add_argument("--min-segment", type=int, default=5,
                         help="Min frames for a possession segment (default: 5)")
-    parser.add_argument("--name", default="gbdt_viterbi",
-                        help="Submission file name (default: gbdt_viterbi)")
+    parser.add_argument("--name", default="weak_predictions",
+                        help="Submission file name (default: weak_predictions)")
     parser.add_argument("--skip-features", action="store_true",
                         help="Use cached features if available")
     parser.add_argument("--skip-training", action="store_true",
-                        help="Use cached model/emissions if available")
+                        help="Require a saved automatic-label model; predict fresh emissions")
 
     args = parser.parse_args()
 

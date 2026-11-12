@@ -11,8 +11,8 @@ The Hidden Markov Model has 3 states: H (home), A (away), D (dead ball).
   - D→H and D→A are restart events
 
 The Viterbi algorithm finds the most likely STATE SEQUENCE given all
-observations — this is what produces temporally coherent possessions
-and directly optimises spellF1.
+observations. It encourages temporally coherent possessions; it does not
+directly optimise the evaluation metric spellF1.
 
 Usage:
     python -m pipeline.viterbi
@@ -287,7 +287,10 @@ def write_submission(labels_str, path):
 # ---------------------------------------------------------------------------
 
 if __name__ == "__main__":
-    output_dir = os.path.join(ROOT, "pipeline", "output")
+    from pipeline.gbdt_model import OUTPUT_DIR, load_model
+
+    output_dir = OUTPUT_DIR
+    load_model(output_dir)  # Verify automatic-label training provenance before reuse.
     emissions_path = os.path.join(output_dir, "emissions.npy")
 
     if not os.path.exists(emissions_path):
@@ -302,15 +305,15 @@ if __name__ == "__main__":
 
     # Decode
     print("\nDecoding with Viterbi...")
-    # First half starts with the away team kick-off (from ground truth)
-    labels = decode_match(emissions, log_trans, initial_states={1: A, 2: H})
+    # No kickoff labels from ground truth; start each half with a uniform prior.
+    labels = decode_match(emissions, log_trans)
 
     # Post-process
     labels = remove_short_segments(labels, min_frames=5)
 
     # Convert and write
     label_strings = labels_to_submission(labels)
-    sub_path = os.path.join(ROOT, "evaluation", "results", "gbdt_viterbi.csv")
+    sub_path = os.path.join(ROOT, "evaluation", "results", "weak_predictions.csv")
     write_submission(label_strings, sub_path)
 
     print("\nDone! Score it with:")

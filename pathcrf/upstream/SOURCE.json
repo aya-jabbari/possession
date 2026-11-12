@@ -1,0 +1,278 @@
+{
+  "repository": "https://github.com/hyunsungkim-ds/pathcrf",
+  "commit": "1b7c6f85a6b78c92e4543fde72ca2b86a933f997",
+  "files": [
+    {
+      "path": "LICENSE",
+      "mode": "100644",
+      "type": "blob",
+      "sha": "d0a1fa1482eea82e19510e7920cbe3a03e41f691",
+      "size": 16726,
+      "url": "https://api.github.com/repos/hyunsungkim-ds/pathcrf/git/blobs/d0a1fa1482eea82e19510e7920cbe3a03e41f691"
+    },
+    {
+      "path": "datatools/animator.py",
+      "mode": "100644",
+      "type": "blob",
+      "sha": "853d224653523053a3b6c82ce3a10030ca6846b6",
+      "size": 34170,
+      "url": "https://api.github.com/repos/hyunsungkim-ds/pathcrf/git/blobs/853d224653523053a3b6c82ce3a10030ca6846b6"
+    },
+    {
+      "path": "datatools/ballradar_pp.py",
+      "mode": "100644",
+      "type": "blob",
+      "sha": "34040efcf6587a546568bf519999f6179fcecbe9",
+      "size": 31090,
+      "url": "https://api.github.com/repos/hyunsungkim-ds/pathcrf/git/blobs/34040efcf6587a546568bf519999f6179fcecbe9"
+    },
+    {
+      "path": "datatools/check_red_cards.py",
+      "mode": "100644",
+      "type": "blob",
+      "sha": "e29a8adfa8627a502ed58a58802a2f549931c9d7",
+      "size": 2015,
+      "url": "https://api.github.com/repos/hyunsungkim-ds/pathcrf/git/blobs/e29a8adfa8627a502ed58a58802a2f549931c9d7"
+    },
+    {
+      "path": "datatools/config.py",
+      "mode": "100644",
+      "type": "blob",
+      "sha": "546d38588fd258c5cebaa90d3709dc157b3e022b",
+      "size": 1372,
+      "url": "https://api.github.com/repos/hyunsungkim-ds/pathcrf/git/blobs/546d38588fd258c5cebaa90d3709dc157b3e022b"
+    },
+    {
+      "path": "datatools/dataset_debug.py",
+      "mode": "100644",
+      "type": "blob",
+      "sha": "6cd9cd959647c52c38c7a2cfc9581e1d6e77e376",
+      "size": 9003,
+      "url": "https://api.github.com/repos/hyunsungkim-ds/pathcrf/git/blobs/6cd9cd959647c52c38c7a2cfc9581e1d6e77e376"
+    },
+    {
+      "path": "datatools/dataset_stats.py",
+      "mode": "100644",
+      "type": "blob",
+      "sha": "77f4757a336e6ef2efa17c5857f021b91a5b2347",
+      "size": 2248,
+      "url": "https://api.github.com/repos/hyunsungkim-ds/pathcrf/git/blobs/77f4757a336e6ef2efa17c5857f021b91a5b2347"
+    },
+    {
+      "path": "datatools/evaluate_events.py",
+      "mode": "100644",
+      "type": "blob",
+      "sha": "5b551d6435c185dc8ede224203af199ecb81e509",
+      "size": 13798,
+      "url": "https://api.github.com/repos/hyunsungkim-ds/pathcrf/git/blobs/5b551d6435c185dc8ede224203af199ecb81e509"
+    },
+    {
+      "path": "datatools/match_data.py",
+      "mode": "100644",
+      "type": "blob",
+      "sha": "e84eef3960521d7018005549cfce106e91599b6b",
+      "size": 7435,
+      "url": "https://api.github.com/repos/hyunsungkim-ds/pathcrf/git/blobs/e84eef3960521d7018005549cfce106e91599b6b"
+    },
+    {
+      "path": "datatools/matplotsoccer.py",
+      "mode": "100644",
+      "type": "blob",
+      "sha": "72588230133257b7d2954ca35ec566b384532f94",
+      "size": 13731,
+      "url": "https://api.github.com/repos/hyunsungkim-ds/pathcrf/git/blobs/72588230133257b7d2954ca35ec566b384532f94"
+    },
+    {
+      "path": "datatools/metrica_data.py",
+      "mode": "100644",
+      "type": "blob",
+      "sha": "4d1a12b13f15e0e1c97cb724682d4f522bd015ac",
+      "size": 23695,
+      "url": "https://api.github.com/repos/hyunsungkim-ds/pathcrf/git/blobs/4d1a12b13f15e0e1c97cb724682d4f522bd015ac"
+    },
+    {
+      "path": "datatools/postprocess.py",
+      "mode": "100644",
+      "type": "blob",
+      "sha": "712aeaaff375f6eed537d7ae80e3aaba04ed27f3",
+      "size": 20768,
+      "url": "https://api.github.com/repos/hyunsungkim-ds/pathcrf/git/blobs/712aeaaff375f6eed537d7ae80e3aaba04ed27f3"
+    },
+    {
+      "path": "datatools/preprocess.py",
+      "mode": "100644",
+      "type": "blob",
+      "sha": "322f193bd6676346f6384c93d20f376f32bd277f",
+      "size": 17210,
+      "url": "https://api.github.com/repos/hyunsungkim-ds/pathcrf/git/blobs/322f193bd6676346f6384c93d20f376f32bd277f"
+    },
+    {
+      "path": "datatools/preprocess_noise.py",
+      "mode": "100644",
+      "type": "blob",
+      "sha": "0537a655fd8db72d7f678f162f5c6968c6040e5b",
+      "size": 8577,
+      "url": "https://api.github.com/repos/hyunsungkim-ds/pathcrf/git/blobs/0537a655fd8db72d7f678f162f5c6968c6040e5b"
+    },
+    {
+      "path": "datatools/sportec_data.py",
+      "mode": "100644",
+      "type": "blob",
+      "sha": "5bb690991032036fdba2675bc9663159f5f382f6",
+      "size": 22650,
+      "url": "https://api.github.com/repos/hyunsungkim-ds/pathcrf/git/blobs/5bb690991032036fdba2675bc9663159f5f382f6"
+    },
+    {
+      "path": "datatools/tracab_data.py",
+      "mode": "100644",
+      "type": "blob",
+      "sha": "29b06f3dbfcbb43894d2da2490f997e80f7f01c3",
+      "size": 32540,
+      "url": "https://api.github.com/repos/hyunsungkim-ds/pathcrf/git/blobs/29b06f3dbfcbb43894d2da2490f997e80f7f01c3"
+    },
+    {
+      "path": "datatools/tracab_metadata.py",
+      "mode": "100644",
+      "type": "blob",
+      "sha": "bb6a8dd488f88d65fff49af2c7106e1ef019d7b5",
+      "size": 6071,
+      "url": "https://api.github.com/repos/hyunsungkim-ds/pathcrf/git/blobs/bb6a8dd488f88d65fff49af2c7106e1ef019d7b5"
+    },
+    {
+      "path": "datatools/utils.py",
+      "mode": "100644",
+      "type": "blob",
+      "sha": "ec4df34ff5d871a6446978b14209087d87070af3",
+      "size": 19465,
+      "url": "https://api.github.com/repos/hyunsungkim-ds/pathcrf/git/blobs/ec4df34ff5d871a6446978b14209087d87070af3"
+    },
+    {
+      "path": "inference.py",
+      "mode": "100644",
+      "type": "blob",
+      "sha": "91d1d7a031d28536f25683ea24e031a366f5f4f1",
+      "size": 45360,
+      "url": "https://api.github.com/repos/hyunsungkim-ds/pathcrf/git/blobs/91d1d7a031d28536f25683ea24e031a366f5f4f1"
+    },
+    {
+      "path": "models/__init__.py",
+      "mode": "100644",
+      "type": "blob",
+      "sha": "e69de29bb2d1d6434b8b29ae775ad8c2e48c5391",
+      "size": 0,
+      "url": "https://api.github.com/repos/hyunsungkim-ds/pathcrf/git/blobs/e69de29bb2d1d6434b8b29ae775ad8c2e48c5391"
+    },
+    {
+      "path": "models/dynamic_dense_crf.py",
+      "mode": "100644",
+      "type": "blob",
+      "sha": "c26473c6da467fa23e32f08a34e19e15b7720198",
+      "size": 8022,
+      "url": "https://api.github.com/repos/hyunsungkim-ds/pathcrf/git/blobs/c26473c6da467fa23e32f08a34e19e15b7720198"
+    },
+    {
+      "path": "models/dynamic_sparse_crf.py",
+      "mode": "100644",
+      "type": "blob",
+      "sha": "63535cb76922baca7e7fe50f043c13d50c6b8b85",
+      "size": 15262,
+      "url": "https://api.github.com/repos/hyunsungkim-ds/pathcrf/git/blobs/63535cb76922baca7e7fe50f043c13d50c6b8b85"
+    },
+    {
+      "path": "models/gat_lstm.py",
+      "mode": "100644",
+      "type": "blob",
+      "sha": "80a003da9dfb34a2a583d705749260939dfeb786",
+      "size": 12889,
+      "url": "https://api.github.com/repos/hyunsungkim-ds/pathcrf/git/blobs/80a003da9dfb34a2a583d705749260939dfeb786"
+    },
+    {
+      "path": "models/set_lstm.py",
+      "mode": "100644",
+      "type": "blob",
+      "sha": "fa56ffece4f53f0956b6e40f9b629b34a20bd181",
+      "size": 18778,
+      "url": "https://api.github.com/repos/hyunsungkim-ds/pathcrf/git/blobs/fa56ffece4f53f0956b6e40f9b629b34a20bd181"
+    },
+    {
+      "path": "models/static_dense_crf.py",
+      "mode": "100644",
+      "type": "blob",
+      "sha": "79ecb4f544548dbfbafbe0578083cc46cc7f4c2c",
+      "size": 5783,
+      "url": "https://api.github.com/repos/hyunsungkim-ds/pathcrf/git/blobs/79ecb4f544548dbfbafbe0578083cc46cc7f4c2c"
+    },
+    {
+      "path": "models/static_sparse_crf.py",
+      "mode": "100644",
+      "type": "blob",
+      "sha": "924aa419ffefc96f395970f2e42602a37f659305",
+      "size": 13023,
+      "url": "https://api.github.com/repos/hyunsungkim-ds/pathcrf/git/blobs/924aa419ffefc96f395970f2e42602a37f659305"
+    },
+    {
+      "path": "models/transportmer.py",
+      "mode": "100644",
+      "type": "blob",
+      "sha": "f112cf60af888b3381147b310a7b5f2ff64c40e2",
+      "size": 9540,
+      "url": "https://api.github.com/repos/hyunsungkim-ds/pathcrf/git/blobs/f112cf60af888b3381147b310a7b5f2ff64c40e2"
+    },
+    {
+      "path": "models/utils.py",
+      "mode": "100644",
+      "type": "blob",
+      "sha": "07501789d2874e7b34337ee55d2ad35bdf35a77d",
+      "size": 10695,
+      "url": "https://api.github.com/repos/hyunsungkim-ds/pathcrf/git/blobs/07501789d2874e7b34337ee55d2ad35bdf35a77d"
+    },
+    {
+      "path": "requirements.txt",
+      "mode": "100644",
+      "type": "blob",
+      "sha": "93719e2b15ee34586277fd7913a6c2768bc33e28",
+      "size": 55,
+      "url": "https://api.github.com/repos/hyunsungkim-ds/pathcrf/git/blobs/93719e2b15ee34586277fd7913a6c2768bc33e28"
+    },
+    {
+      "path": "set_transformer/attention.py",
+      "mode": "100644",
+      "type": "blob",
+      "sha": "af210973104f781291064095403169227cc48bca",
+      "size": 3134,
+      "url": "https://api.github.com/repos/hyunsungkim-ds/pathcrf/git/blobs/af210973104f781291064095403169227cc48bca"
+    },
+    {
+      "path": "set_transformer/blocks.py",
+      "mode": "100644",
+      "type": "blob",
+      "sha": "5ef8a90d14a44a7bdaaac3565d17addd72d4f472",
+      "size": 4333,
+      "url": "https://api.github.com/repos/hyunsungkim-ds/pathcrf/git/blobs/5ef8a90d14a44a7bdaaac3565d17addd72d4f472"
+    },
+    {
+      "path": "set_transformer/input_pipeline.py",
+      "mode": "100644",
+      "type": "blob",
+      "sha": "1b8873793b9f90f0e1673549915f4da8bb17bfef",
+      "size": 1633,
+      "url": "https://api.github.com/repos/hyunsungkim-ds/pathcrf/git/blobs/1b8873793b9f90f0e1673549915f4da8bb17bfef"
+    },
+    {
+      "path": "set_transformer/model.py",
+      "mode": "100644",
+      "type": "blob",
+      "sha": "b9eb0269f2e85678721830edd873f09698fbb01f",
+      "size": 2172,
+      "url": "https://api.github.com/repos/hyunsungkim-ds/pathcrf/git/blobs/b9eb0269f2e85678721830edd873f09698fbb01f"
+    },
+    {
+      "path": "set_transformer/train.py",
+      "mode": "100644",
+      "type": "blob",
+      "sha": "5a2db7281d3631fb575c344184bad7907117e1e5",
+      "size": 6108,
+      "url": "https://api.github.com/repos/hyunsungkim-ds/pathcrf/git/blobs/5a2db7281d3631fb575c344184bad7907117e1e5"
+    }
+  ]
+}
