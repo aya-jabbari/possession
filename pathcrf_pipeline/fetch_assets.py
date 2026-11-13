@@ -32,12 +32,14 @@ def write_verified(path,data,sha,git_blob=True):
 def main():
     parser=argparse.ArgumentParser(description=__doc__)
     parser.add_argument('--with-detector',action='store_true')
+    parser.add_argument('--trials',nargs='+',type=int,choices=[100,110,120,130,140],default=[140])
     args=parser.parse_args()
     tree=json.loads(fetch(f'https://api.github.com/repos/hyunsungkim-ds/pathcrf/git/trees/{COMMIT}?recursive=1'))
     source=[e for e in tree['tree'] if e['type']=='blob' and
             ((e['path'].startswith(('models/','datatools/','set_transformer/')) and e['path'].endswith('.py'))
              or e['path'] in ['inference.py','requirements.txt','LICENSE'])]
-    weights=[e for e in tree['tree'] if e['type']=='blob' and e['path'].startswith('saved/140/')]
+    weights=[e for e in tree['tree'] if e['type']=='blob' and
+             any(e['path'].startswith(f'saved/{trial}/') for trial in args.trials)]
     def download(entry):
         destination=(ASSETS/entry['path'] if entry in weights else ASSETS/'upstream'/entry['path'])
         data=fetch(f'https://raw.githubusercontent.com/hyunsungkim-ds/pathcrf/{COMMIT}/{entry["path"]}')

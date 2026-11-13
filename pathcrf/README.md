@@ -27,7 +27,7 @@ not changed by these commands. Output is isolated under `pathcrf/output/`.
 Restore missing source/checkpoints with:
 
 ```powershell
-python -B -m pathcrf_pipeline.fetch_assets --with-detector
+python -B -m pathcrf_pipeline.fetch_assets --trials 100 110 120 130 140 --with-detector
 ```
 
 The downloader pins the source revision and verifies Git blob hashes. It checks
@@ -134,3 +134,48 @@ under the ignored output folder.
   and provenance are preserved in `detector/`.
 
 No match assets, tracking exports or clipped images should be redistributed.
+
+## Compare all released checkpoints
+
+The adapter also supports 100 (Non-CRF), 110 (Static Dense), 120 (Static Masked),
+and 130 (Dynamic Dense). It uses independent argmax for 100 and each CRF's own
+official decoder for 110-140. Hard transition checks apply only to masked CRFs;
+the unmasked models are not silently given the masked model's constraints.
+
+Run all five with identical preprocessing and the approved positional goalkeeper
+fallback, then open the public answer key only in the separate evaluation step:
+
+```powershell
+python -B -u -X utf8 -m pathcrf_pipeline.benchmark --threads 4
+python -B -u -X utf8 -m pathcrf_pipeline.compare_checkpoints --bootstrap 1000
+```
+
+Each run goes under `output/checkpoints/<trial>/`. The original 140 experiment
+under `output/results/` is preserved. The benchmark verifies identical input
+tensor fingerprints, window coverage and fallback-rule hashes across checkpoints.
+It reruns 140 as well so the comparison does not mix old preprocessing with new.
+
+The final report is `output/checkpoints/comparison/CHECKPOINT_COMPARISON.md`.
+It shows model-only and combined results separately, includes the original
+baselines, bootstrap intervals, full-match coverage and validation metadata.
+The ranking is diagnostic on the public 17 possessions. Full-match accuracy is
+not measured, and choosing a model on the public key makes it a selection set.
+
+The released checkpoints have some different recorded training options, including
+the leave-one-match-out setting. This compares pretrained weight files rather
+than isolating CRF architecture as the sole cause of any performance differences.
+
+To run one alternative without replacing the original 140 output:
+
+```powershell
+python -B -u -X utf8 -m pathcrf_pipeline.run --trial 120 --threads 4
+```
+
+All five checkpoint weight files have pinned SHA-256 checks. The integration test
+checks every variant against official inference and rejects padded-player outputs.
+The CPU runs enable `torch.set_flush_denormal(True)` consistently across variants.
+Some checkpoints contain tiny subnormal weights that otherwise make CPU forward
+passes very slow. A dedicated test compares logits within 1e-6 and requires
+identical decoded paths with and without this execution setting. Weight files
+remain unchanged; the final report checks the available original 100/140 export
+hashes as an additional full-match regression check.

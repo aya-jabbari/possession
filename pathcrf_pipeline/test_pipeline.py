@@ -145,6 +145,63 @@ class CheckpointTests(unittest.TestCase):
         with self.assertRaises(PermissionError):
             path.read_text()
 
+    def test_all_variants_match_the_official_decoder(self):
+        from inference import inference_episode
+        from .infer import load_model, predict_window
+        xy,team=synthetic_tracking()
+        prepared,_=make_window(xy,team)
+        names=[('home' if team[node]==0 else 'away')+f'_{node:03d}' for node in range(22)]
+        columns={f'{names[node]}_{suffix}':prepared['tensor'][:,node,2+j]
+                 for node in range(22)
+                 for j,suffix in enumerate(['x','y','vx','vy','speed','accel'])}
+        all_names=names+['out_left','out_right','out_bottom','out_top']
+        for trial in [100,110,120,130,140]:
+            with self.subTest(trial=trial):
+                model,_=load_model(4,trial)
+                use_crf=model.crf is not None
+                _,_,official,_,_=inference_episode(model,pd.DataFrame(columns),
+                    left_gk=names[0],right_gk=names[11],evaluate=False,device='cpu',use_crf=use_crf)
+                _,path=predict_window(model,prepared)
+                sample=path['sample_frame']
+                if use_crf:
+                    actual_src=official.loc[sample,'edge_src'].tolist()
+                    actual_dst=official.loc[sample,'edge_dst'].tolist()
+                else:
+                    pairs=[name.split('-') for name in official.loc[sample].idxmax(axis=1)]
+                    actual_src=[p[0] for p in pairs]
+                    actual_dst=[p[1] for p in pairs]
+                self.assertEqual(actual_src,[all_names[i] for i in path['source_node']])
+                self.assertEqual(actual_dst,[all_names[i] for i in path['destination_node']])
+                partial_xy=xy.copy()
+                partial_xy[:,3]=np.nan
+                partial,_=make_window(partial_xy,team)
+                _,partial_path=predict_window(model,partial)
+                self.assertTrue(partial['active'][partial_path['source_node']].all())
+                self.assertTrue(partial['active'][partial_path['destination_node']].all())
+
+    def test_cpu_denormal_policy_preserves_logits_and_paths(self):
+        import torch
+        from .infer import load_model, predict_window
+        xy,team=synthetic_tracking(250)
+        time=np.arange(250,dtype=np.float32)/25
+        xy[:,:,0] += (np.sin(time*.5)*.01)[:,None]
+        prepared,_=make_window(xy,team)
+        index=np.r_[np.arange(0,250,5),249]
+        x=torch.from_numpy(prepared['tensor'][index]).unsqueeze(0)
+        for trial in [100,110,120,130,140]:
+            with self.subTest(trial=trial), torch.inference_mode():
+                model,_=load_model(4,trial)
+                torch.set_flush_denormal(False)
+                _,reference,_=model(x)
+                reference_labels,reference_path=predict_window(model,prepared)
+                torch.set_flush_denormal(True)
+                _,optimized,_=model(x)
+                labels,path=predict_window(model,prepared)
+                torch.testing.assert_close(reference,optimized,rtol=1e-6,atol=1e-6)
+                np.testing.assert_array_equal(reference_labels,labels)
+                np.testing.assert_array_equal(reference_path['source_node'],path['source_node'])
+                np.testing.assert_array_equal(reference_path['destination_node'],path['destination_node'])
+
 
 if __name__=='__main__':
     unittest.main()

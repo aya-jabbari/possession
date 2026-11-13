@@ -1,0 +1,101 @@
+{
+  "commit": "1b7c6f85a6b78c92e4543fde72ca2b86a933f997",
+  "files": [
+    {
+      "path": "saved/100/args.json",
+      "git_sha1": "ff8687dd2b027fcd5051469ad42e3eb6bb9d6621",
+      "sha256": "a35a27ab2bc578a86f22de343d70da923b8913a65e61824f765fe02141b10770",
+      "size": 1112
+    },
+    {
+      "path": "saved/100/log.txt",
+      "git_sha1": "d42c78b8680994efdc9b2e0e6ef981c417e7e6a0",
+      "sha256": "8bd23ff1240a7e849db55f32e36962ae011e481ac7fbfe8cc02dec7072d7002c",
+      "size": 17546
+    },
+    {
+      "path": "saved/100/model/state_dict_best.pt",
+      "git_sha1": "f56e445497f334fd95e3877ebef450b846eaaf57",
+      "sha256": "201de5e1dbdbbb2307d07c4c4c7e6ab8c7dff3f7988703be7ea98b2903ba3ce8",
+      "size": 19086084
+    },
+    {
+      "path": "saved/100/model/state_dict_best_acc.pt",
+      "git_sha1": "02f51326908a2dbdd4766ef67cf4b7658d27ec11",
+      "sha256": "8b9ddfa6c8e7510ca91320c12a187cd1d8e21822984216534b9a1ffd8c09428b",
+      "size": 19088352
+    },
+    {
+      "path": "saved/110/args.json",
+      "git_sha1": "4587d8797dc1518402c38f3c32c565eb8dda3800",
+      "sha256": "1734f0a6f7d97d3d10a6b8b31d71c78397a7bcd83b2e9eec9e3a27b6193e20fc",
+      "size": 1129
+    },
+    {
+      "path": "saved/110/log.txt",
+      "git_sha1": "3344a267788b2ba4a1445218d83cb3644d93e7db",
+      "sha256": "4c04004a84cc1eed4e0d9ab4f05a828f29ac47c268c5e951b459dfa9882cf2fc",
+      "size": 17716
+    },
+    {
+      "path": "saved/110/model/state_dict_best.pt",
+      "git_sha1": "a0d3eef4bb3506bc75fb8b83ca6486c253c4a602",
+      "sha256": "85f0c362aca1d4230371e98238b98810c3afc2d4c81564ae294adfdc1b7b2ca1",
+      "size": 20413514
+    },
+    {
+      "path": "saved/110/model/state_dict_best_acc.pt",
+      "git_sha1": "172b61ec12864f3c072de4fd24f6f620dd1785e5",
+      "sha256": "112cdc05a2eb926d383d91c3f93c0540f63bebdae80a34e064485b6c89c74338",
+      "size": 20415786
+    },
+    {
+      "path": "saved/120/args.json",
+      "git_sha1": "378ef2862b57b102435188c1411463d2b8c03c51",
+      "sha256": "9f4f8961a7672db639d73f350cbfe61ff0654214c16015bc58077c276fb0b181",
+      "size": 1164
+    },
+    {
+      "path": "saved/120/log.txt",
+      "git_sha1": "2fa2bb217ae2bdf96d566295e37d19f789562689",
+      "sha256": "c8c0f264a1f53c91e300f40d787a3695bdf8ab97dd12dedf3a0ac4a59bbf1106",
+      "size": 10705
+    },
+    {
+      "path": "saved/120/model/state_dict_best.pt",
+      "git_sha1": "14b37a69bf633806cbd597116cf0436132802891",
+      "sha256": "f7a5bf7ec404c1b22575148ca5e1c3c6dba00a5bec7b93e57d3f98c11670a5bb",
+      "size": 19259286
+    },
+    {
+      "path": "saved/120/model/state_dict_best_acc.pt",
+      "git_sha1": "ef4a9efbe4df7be193f4b6566f16551a1247057d",
+      "sha256": "d4ad02c1923cd0bf2d2f6566a6754001941293358cf6adffc127f3be26f07b11",
+      "size": 19261566
+    },
+    {
+      "path": "saved/130/args.json",
+      "git_sha1": "1b206301d86f80f285a3f72799d6b466d5f36856",
+      "sha256": "e6ae0ae34a89c2cfa5ceb3cfc148e099cd31213e48eee834385c0a16da5e3c36",
+      "size": 1130
+    },
+    {
+      "path": "saved/130/log.txt",
+      "git_sha1": "59a753dcc74043d5068e8c7431984a021b0b0ca9",
+      "sha256": "c8655b7a4d81e9c339243e3ffbf943f00112f97ed68325effad9eb9f68da6e51",
+      "size": 13502
+    },
+    {
+      "path": "saved/130/model/state_dict_best.pt",
+      "git_sha1": "1b6d5562ac2192f8eda234fe1caf7dcc8f076089",
+      "sha256": "024a01a6502eb596f9a951e1b761f1bf1cb6209f44f948fe1f90bd5556b9af94",
+      "size": 19096680
+    },
+    {
+      "path": "saved/130/model/state_dict_best_acc.pt",
+      "git_sha1": "f246fe1a13d5fc630b46671c1804c10f91727855",
+      "sha256": "82eb3a3b96b82b1ae91145a295a3a34b85a6e9b1d330044bd968a5e9c05d88fc",
+      "size": 19098972
+    }
+  ]
+}
