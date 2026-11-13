@@ -26,6 +26,14 @@ evaluation/results/*.csv
 evaluation/reports/
 evaluation/scoreboard.csv
 
+# Retrained automatic-label models and derived training targets (regenerate locally).
+pipeline/output/weak/
+
+# PathCRF local dependencies and derived competition data; reproducible via code.
+pathcrf/dependencies/
+pathcrf/output/
+pathcrf/detector/*.pt
+
 # -- gated data --------------------------------------------------------------------------------
 # data/ is committed empty, with only its README, so the folder participants are told to unpack
 # into actually exists in a fresh clone. Everything they put in it stays out of git.
